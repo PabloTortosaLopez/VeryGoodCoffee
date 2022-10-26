@@ -1,0 +1,10 @@
+{
+  "appTitle": "very_good_coffee",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+   "sampleLocalization": "A very good coffe",
+  "@sampleLocalization": {
+    "description": "This is for tests purposes"
+  }
+}
