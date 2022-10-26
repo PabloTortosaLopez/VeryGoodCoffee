@@ -15,6 +15,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  coffee_api:
+    path: ./packages/coffee_api
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

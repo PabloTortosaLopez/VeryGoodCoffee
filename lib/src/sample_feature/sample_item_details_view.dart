@@ -15,7 +15,8 @@ class SampleItemDetailsView extends StatelessWidget {
         title: const Text('Item Details'),
       ),
       body: Center(
-        child: Text(localizations.sampleLocalization),
+        child: InkWell(
+            onTap: () async {}, child: Text(localizations.sampleLocalization)),
       ),
     );
   }
