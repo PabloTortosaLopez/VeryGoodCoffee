@@ -1,4 +1,4 @@
-# very_good_coffee
+# Very Good Coffee
 
 A new Flutter project.
 
