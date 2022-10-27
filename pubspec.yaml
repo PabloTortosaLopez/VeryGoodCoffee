@@ -15,8 +15,15 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  go_router: ^5.1.1
+  flutter_bloc: ^8.1.1
+  provider: ^6.0.4
+
   coffee_api:
     path: ./packages/coffee_api
+  
+  coffee_repositories:
+    path: ./packages/coffee_repositories
 
 dev_dependencies:
   flutter_test:

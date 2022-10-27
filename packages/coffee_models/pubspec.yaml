@@ -1,4 +1,4 @@
-name: coffee_api
+name: coffee_models
 description: A new Flutter package project.
 version: 0.0.1
 homepage:
@@ -13,12 +13,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  http: ^0.13.5
-  shared_preferences: ^2.0.15
-
-  coffee_models:
-    path: ../coffee_models
+  
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:

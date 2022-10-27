@@ -28,8 +28,6 @@ class CoffeeHttp implements HttpWrapper {
 }
 
 // void testApi() async {
-  //   // This example uses the Google Books API to search for books about http.
-  //   // https://developers.google.com/books/docs/overview
   //   var url = Uri.https('coffee.alexflipnote.dev', '/random.json');
 
   //   // Await the http get response, then decode the json-formatted response.
