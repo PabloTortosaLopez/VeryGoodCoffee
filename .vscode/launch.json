@@ -1,0 +1,85 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "VeryGoodCoffee",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "VeryGoodCoffee (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "VeryGoodCoffee (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "coffee_api",
+            "cwd": "packages/coffee_api",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "coffee_api (profile mode)",
+            "cwd": "packages/coffee_api",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "coffee_api (release mode)",
+            "cwd": "packages/coffee_api",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "coffee_models",
+            "cwd": "packages/coffee_models",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "coffee_models (profile mode)",
+            "cwd": "packages/coffee_models",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "coffee_models (release mode)",
+            "cwd": "packages/coffee_models",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "coffee_repositories",
+            "cwd": "packages/coffee_repositories",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "coffee_repositories (profile mode)",
+            "cwd": "packages/coffee_repositories",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "coffee_repositories (release mode)",
+            "cwd": "packages/coffee_repositories",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

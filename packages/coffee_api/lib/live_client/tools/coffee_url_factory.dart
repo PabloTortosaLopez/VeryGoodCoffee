@@ -10,7 +10,7 @@ class CoffeeURLFactory {
   }
 
   String _getAuthRoute() {
-    return 'coffee.alexflipnote.dev';
+    return 'https://coffee.alexflipnote.dev';
   }
 
   String _getEndpointComponent(CoffeeEndpoint endpoint) {

@@ -6,6 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:very_good_coffee/favorites/bloc/favorites_bloc.dart';
+import 'package:very_good_coffee/favorites/bloc/favorites_event.dart';
+import 'package:very_good_coffee/home/home.dart';
 import 'package:very_good_coffee/routing/routes.dart';
 import '../settings/settings_controller.dart';
 
@@ -32,63 +35,65 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => LocalCoffeeClient(),
         ),
       ],
-      child: _RepositoriesInitializator(
-        child: AnimatedBuilder(
-          animation: settingsController,
-          builder: (BuildContext context, Widget? child) {
-            final router =
-                Provider.of<CoffeeRouter>(context, listen: false).router;
-            return MaterialApp.router(
-              restorationScopeId: 'very_good_coffee_app',
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: const [
-                Locale.fromSubtags(languageCode: 'en'),
-                Locale.fromSubtags(languageCode: 'es'),
-              ],
-              onGenerateTitle: (BuildContext context) =>
-                  AppLocalizations.of(context)!.appTitle,
-              theme: ThemeData(),
-              darkTheme: ThemeData.dark(),
-              themeMode: settingsController.themeMode,
-              // routeInformationParser: router.routeInformationParser,
-              // routerDelegate: router.routerDelegate,
+      child: _RepositoryInitializer(
+        child: _BlocInitializer(
+          child: AnimatedBuilder(
+            animation: settingsController,
+            builder: (BuildContext context, Widget? child) {
+              final router =
+                  Provider.of<CoffeeRouter>(context, listen: false).router;
+              return MaterialApp.router(
+                restorationScopeId: 'very_good_coffee_app',
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: const [
+                  Locale.fromSubtags(languageCode: 'en'),
+                  Locale.fromSubtags(languageCode: 'es'),
+                ],
+                onGenerateTitle: (BuildContext context) =>
+                    AppLocalizations.of(context)!.appTitle,
+                theme: ThemeData(),
+                darkTheme: ThemeData.dark(),
+                themeMode: settingsController.themeMode,
+                // routeInformationParser: router.routeInformationParser,
+                // routerDelegate: router.routerDelegate,
 
-              routerConfig: router,
+                routerConfig: router,
 
-              // Define a function to handle named routes in order to support
-              // Flutter web url navigation and deep linking.
-              // onGenerateRoute: (RouteSettings routeSettings) {
-              //   return MaterialPageRoute<void>(
-              //     settings: routeSettings,
-              //     builder: (BuildContext context) {
-              //       switch (routeSettings.name) {
-              //         case SettingsView.routeName:
-              //           return SettingsView(controller: settingsController);
-              //         case SampleItemDetailsView.routeName:
-              //           return const SampleItemDetailsView();
-              //         case SampleItemListView.routeName:
-              //         default:
-              //           return const SampleItemListView();
-              //       }
-              //     },
-              //   );
-              // },
-            );
-          },
+                // Define a function to handle named routes in order to support
+                // Flutter web url navigation and deep linking.
+                // onGenerateRoute: (RouteSettings routeSettings) {
+                //   return MaterialPageRoute<void>(
+                //     settings: routeSettings,
+                //     builder: (BuildContext context) {
+                //       switch (routeSettings.name) {
+                //         case SettingsView.routeName:
+                //           return SettingsView(controller: settingsController);
+                //         case SampleItemDetailsView.routeName:
+                //           return const SampleItemDetailsView();
+                //         case SampleItemListView.routeName:
+                //         default:
+                //           return const SampleItemListView();
+                //       }
+                //     },
+                //   );
+                // },
+              );
+            },
+          ),
         ),
       ),
     );
   }
 }
 
-class _RepositoriesInitializator extends StatelessWidget {
+class _RepositoryInitializer extends StatelessWidget {
   final Widget child;
-  const _RepositoriesInitializator({
+  const _RepositoryInitializer({
     required this.child,
   }) : super();
 
@@ -104,6 +109,32 @@ class _RepositoriesInitializator extends StatelessWidget {
             coffeeClient: liveClient,
             localCoffeeClient: localClient,
           ),
+        ),
+      ],
+      child: child,
+    );
+  }
+}
+
+class _BlocInitializer extends StatelessWidget {
+  final Widget child;
+  const _BlocInitializer({
+    required this.child,
+  }) : super();
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => HomeCubit(
+            coffeeRepository: RepositoryProvider.of<CoffeeRepository>(context),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => FavoritesBloc(
+            coffeeRepository: RepositoryProvider.of<CoffeeRepository>(context),
+          )..add(FavoritesLoadEvent()),
         ),
       ],
       child: child,

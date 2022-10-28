@@ -17,6 +17,9 @@ dependencies:
   coffee_api:
     path: ../coffee_api
 
+  coffee_models:
+    path: ../coffee_models
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:coffee_api/live_client/tools/coffee_url_factory.dart';
-import 'package:coffee_models/coffee/coffee.dart';
+import 'package:coffee_models/coffee_models.dart';
 import 'package:flutter/widgets.dart';
 
 import 'coffee_api_errors.dart';

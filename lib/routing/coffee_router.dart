@@ -19,7 +19,7 @@ class CoffeeRouter {
             path: 'favorites',
             pageBuilder: (context, state) => MaterialPage(
               key: state.pageKey,
-              child: const SampleItemListView(),
+              child: const FavoriteCoffeesScreen(),
             ),
             // routes: <GoRoute>[
             //   GoRoute(
