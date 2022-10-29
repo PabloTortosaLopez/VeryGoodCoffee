@@ -3,6 +3,7 @@ import 'package:coffee_models/coffee_models.dart';
 
 import 'package:flutter/widgets.dart';
 
+//TODO guardar el path al convertir la URL en file
 class LocalCoffeeClient {
   @protected
   final CoffeeSharedPrefs sharedPrefs;

@@ -6,10 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:very_good_coffee/favorites/bloc/favorites_bloc.dart';
-import 'package:very_good_coffee/favorites/bloc/favorites_event.dart';
 import 'package:very_good_coffee/home/home.dart';
 import 'package:very_good_coffee/routing/routes.dart';
+import '../../favorite/favorite.dart';
 import '../settings/settings_controller.dart';
 
 class MyApp extends StatelessWidget {
@@ -132,9 +131,9 @@ class _BlocInitializer extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          create: (_) => FavoritesBloc(
+          create: (_) => FavoriteBloc(
             coffeeRepository: RepositoryProvider.of<CoffeeRepository>(context),
-          )..add(FavoritesLoadEvent()),
+          )..add(const FavoriteLoadEvent()),
         ),
       ],
       child: child,

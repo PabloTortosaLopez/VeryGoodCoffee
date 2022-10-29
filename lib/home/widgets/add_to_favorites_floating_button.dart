@@ -1,36 +1,92 @@
-import 'package:coffee_models/coffee_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:very_good_coffee/favorites/bloc/favorites_bloc.dart';
-import 'package:very_good_coffee/favorites/bloc/favorites_event.dart';
 
-import '../bloc/home_cubit.dart';
+import '../../favorite/favorite.dart';
+import '../home.dart';
 
 class AddToFavoritesFloatingButton extends StatelessWidget {
   const AddToFavoritesFloatingButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final enabled =
-        context.select((HomeCubit cubit) => cubit.state.coffeeLoaded);
-
     final coffee = context.select((HomeCubit cubit) => cubit.state.coffee);
 
-    return FloatingActionButton(
-      backgroundColor: enabled ? Colors.pink : Colors.grey,
-      onPressed: enabled
-          ? () {
-              context
-                  .read<FavoritesBloc>()
-                  .add(FavoritesAddEvent(coffee: coffee!));
+//TODO: Mejorar logica y extrar snackBar
+    return BlocConsumer<FavoriteBloc, FavoriteState>(
+      /// By checking shouldShowAlert here,
+      /// we prevent the stack of snackBars from accumulating.
+      listenWhen: (previous, current) =>
+          previous.shouldShowAlert != current.shouldShowAlert,
+      listener: (context, state) {
+        if (state.shouldShowAlert) {
+          String snackText;
 
-              // context.read<FavoritesBloc>().add(const FavoritesAddEvent(
-              //     coffee: Coffee(
-              //         imageUrl:
-              //             'https://coffee.alexflipnote.dev/J_q19leiBp8_coffee.jpg')));
+          if (state.hasError) {
+            snackText = 'Something wrong happened';
+          } else {
+            snackText = 'Coffee added to favorites!';
+            if (state.alreadyAdded) {
+              snackText = 'Coffee already added';
             }
-          : null,
-      child: const Icon(Icons.favorite),
+          }
+
+          final snackColor = state.hasError ? Colors.red : Colors.amber;
+
+          final snackBar = SnackBar(
+            content: Text(snackText),
+            backgroundColor: snackColor,
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then(
+                (_) => {
+                  context
+                      .read<FavoriteBloc>()
+                      .add(const FavoriteResetAlertEvent())
+                },
+              );
+        }
+      },
+
+      builder: (context, state) {
+        final alreadyAdded = state.isCoffeeAlreadyAdded(coffee);
+
+        final enabled = coffee != null;
+        return _LoadingIndicator(
+          isLoading: state.isLoading,
+          child: FloatingActionButton(
+            backgroundColor: alreadyAdded ? Colors.pink : Colors.grey,
+            onPressed: enabled
+                ? () {
+                    context
+                        .read<FavoriteBloc>()
+                        .add(FavoriteAddEvent(coffee: coffee));
+                  }
+                : null,
+            child: state.isLoading ? null : const Icon(Icons.favorite),
+          ),
+        );
+      },
+    );
+  }
+}
+
+//TODO: Extraer widget
+class _LoadingIndicator extends StatelessWidget {
+  final Widget child;
+  final bool isLoading;
+  const _LoadingIndicator({
+    Key? key,
+    required this.child,
+    required this.isLoading,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: AlignmentDirectional.center,
+      children: [
+        child,
+        if (isLoading) const CircularProgressIndicator.adaptive(),
+      ],
     );
   }
 }

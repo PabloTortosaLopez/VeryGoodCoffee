@@ -32,8 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
           loadState: HomeLoadState.succeded,
         ),
       );
-    } on Exception catch (e) {
-      //TODO: loggear excepciones?
+    } on Exception catch (_) {
       emit(
         state.copyWith(
           loadState: HomeLoadState.failed,
@@ -44,7 +43,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   void reloadRandomCoffee() {
     if (state.isLoading) {
-      assert(false, 'Alreay loading coffee!');
+      /// Nothing to do
+      return;
     } else {
       _loadCoffee();
     }

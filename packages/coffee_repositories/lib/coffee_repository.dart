@@ -12,11 +12,8 @@ class CoffeeRepository {
     required this.localCoffeeClient,
   });
 
-  //TODO: define all the calls
-
   Future<Coffee> loadRandomCoffee() async {
     final coffee = await coffeeClient.getRandomCoffee();
-    //TODO: comprobar que es distinto que el anterior?
     return coffee;
   }
 

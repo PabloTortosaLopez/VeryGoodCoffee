@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:very_good_coffee/favorites/bloc/favorites_bloc.dart';
-import 'package:very_good_coffee/favorites/bloc/favorites_state.dart';
 
-/// Displays a list of SampleItems.
+import '../favorite.dart';
+
 class FavoriteCoffeesScreen extends StatelessWidget {
   const FavoriteCoffeesScreen({super.key});
-
-  static const routeName = '/';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sample Items'),
+        title: const Text('Favorites'),
       ),
-      body: BlocBuilder<FavoritesBloc, FavoritesState>(
+      body: BlocBuilder<FavoriteBloc, FavoriteState>(
         builder: (context, state) {
+          //TODO: AJUSTAR COMO LA OTRA PANTALLA, dar opcion de recargar lista y borrar lista?
           if (state.isLoading) {
             return const Center(
               child: Text('Loading'),

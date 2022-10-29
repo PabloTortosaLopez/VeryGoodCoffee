@@ -2,8 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../routing/routes.dart';
-import '../bloc/home_cubit.dart';
-import '../widgets/widgets.dart';
+import '../home.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -52,6 +51,7 @@ class _CoffeeImageView extends StatelessWidget {
                 image: state.coffee!.imageUrl,
               ),
             );
+
           case HomeLoadState.failed:
             return const Center(
               child: Text('Failed to load data'),
