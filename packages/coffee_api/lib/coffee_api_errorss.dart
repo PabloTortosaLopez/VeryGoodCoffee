@@ -1,3 +1,7 @@
+library coffee_api;
+
+class AlreadyAddedException implements Exception {}
+
 class HttpException implements Exception {
   final int code;
   final String? body;

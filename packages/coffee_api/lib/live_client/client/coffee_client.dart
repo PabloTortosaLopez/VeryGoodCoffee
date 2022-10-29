@@ -1,11 +1,10 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
-import 'package:coffee_api/live_client/tools/coffee_url_factory.dart';
 import 'package:coffee_models/coffee_models.dart';
 import 'package:flutter/widgets.dart';
 
-import 'coffee_api_errors.dart';
-import '../tools/http_wrapper.dart';
+import '../../coffee_api.dart';
 
 class CoffeeClient {
   @protected
@@ -28,5 +27,10 @@ class CoffeeClient {
     }
 
     return Coffee.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+  }
+
+  Future<Uint8List> getImageDataFromCoffee(String coffeeUrl) async {
+    final response = await http.get(coffeeUrl);
+    return response.bodyBytes;
   }
 }

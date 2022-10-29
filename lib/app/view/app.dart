@@ -123,18 +123,24 @@ class _BlocInitializer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final coffeeRepository = RepositoryProvider.of<CoffeeRepository>(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (_) => HomeCubit(
-            coffeeRepository: RepositoryProvider.of<CoffeeRepository>(context),
+            coffeeRepository: coffeeRepository,
           ),
         ),
         BlocProvider(
           create: (_) => FavoriteBloc(
-            coffeeRepository: RepositoryProvider.of<CoffeeRepository>(context),
+            coffeeRepository: coffeeRepository,
           )..add(const FavoriteLoadEvent()),
         ),
+        BlocProvider(
+          create: (_) => AddFavoriteCubit(
+            coffeeRepository: coffeeRepository,
+          ),
+        )
       ],
       child: child,
     );

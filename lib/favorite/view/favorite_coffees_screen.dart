@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 import '../favorite.dart';
 
@@ -40,11 +41,8 @@ class FavoriteCoffeesScreen extends StatelessWidget {
                 itemBuilder: (BuildContext _, int index) {
                   final item = state.favoriteCoffees[index];
 
-                  return FadeInImage.memoryNetwork(
-                    placeholder: kTransparentImage,
-                    image: item.imageUrl,
-                    // width: 200,
-                    // height: 200,
+                  return Image.file(
+                    File(item.image.raw),
                   );
                 },
               );

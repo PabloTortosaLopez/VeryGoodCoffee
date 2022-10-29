@@ -9,22 +9,22 @@ class CoffeeSharedPrefs {
 
   static const String _favoriteCoffeesKey = 'favoriteCoffees';
 
-  // MARK: - Store Coffee Image
-  Future<void> storeFavoriteCoffeeImage(String imageUrl) async {
+  // MARK: - Store Coffee path
+  Future<void> storeFavoriteCoffeeImage(String imagePath) async {
     final prefs = await SharedPreferences.getInstance();
     final coffeeList = prefs.getStringList(_favoriteCoffeesKey);
 
     if (coffeeList == null || coffeeList.isEmpty) {
       var newList = <String>[];
-      newList.add(imageUrl);
+      newList.add(imagePath);
       await prefs.setStringList(_favoriteCoffeesKey, newList);
     } else {
-      coffeeList.add(imageUrl);
+      coffeeList.add(imagePath);
       await prefs.setStringList(_favoriteCoffeesKey, coffeeList);
     }
   }
 
-  // MARK: - Recover Coffee Images
+  // MARK: - Recover Coffee Path Images
   Future<List<String>> recoverFavoriteCoffeeImages() async {
     final prefs = await SharedPreferences.getInstance();
     final coffeeList = prefs.getStringList(_favoriteCoffeesKey);
@@ -42,7 +42,8 @@ class CoffeeSharedPrefs {
     final coffeeList = prefs.getStringList(_favoriteCoffeesKey);
 
     if (coffeeList == null || coffeeList.isEmpty) {
-      // It should not be possible to delete a Coffee if there is no Coffees stored
+      assert(false,
+          ' It should not be possible to delete a Coffee if there is no Coffees stored');
       return false;
     } else if (coffeeList.contains(imageUrl)) {
       coffeeList.remove(imageUrl);

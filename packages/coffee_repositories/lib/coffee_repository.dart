@@ -22,6 +22,7 @@ class CoffeeRepository {
   }
 
   Future<List<Coffee>> addCoffeeToFavorites(Coffee coffee) async {
-    return await localCoffeeClient.saveFavoriteCoffee(coffee);
+    final data = await coffeeClient.getImageDataFromCoffee(coffee.image.raw);
+    return await localCoffeeClient.saveFavoriteCoffee(coffee, data);
   }
 }

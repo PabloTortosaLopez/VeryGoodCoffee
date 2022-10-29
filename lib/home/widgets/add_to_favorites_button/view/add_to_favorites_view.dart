@@ -1,36 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../favorite/favorite.dart';
-import '../home.dart';
+import '../../../../favorite/favorite.dart';
+import '../../../home.dart';
 
-class AddToFavoritesFloatingButton extends StatelessWidget {
-  const AddToFavoritesFloatingButton({Key? key}) : super(key: key);
+class AddToFavoritesButton extends StatelessWidget {
+  const AddToFavoritesButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final coffee = context.select((HomeCubit cubit) => cubit.state.coffee);
 
-//TODO: Mejorar logica y extrar snackBar
-    return BlocConsumer<FavoriteBloc, FavoriteState>(
-      /// By checking shouldShowAlert here,
+//TODO: Mejorar logica y extraer snackBar
+    return BlocConsumer<AddFavoriteCubit, AddFavoriteState>(
+      /// By checking showAlert here,
       /// we prevent the stack of snackBars from accumulating.
       listenWhen: (previous, current) =>
-          previous.shouldShowAlert != current.shouldShowAlert,
+          previous.showAlert != current.showAlert,
       listener: (context, state) {
-        if (state.shouldShowAlert) {
+        if (state.showAlert) {
           String snackText;
+          Color snackColor;
 
-          if (state.hasError) {
-            snackText = 'Something wrong happened';
-          } else {
-            snackText = 'Coffee added to favorites!';
-            if (state.alreadyAdded) {
-              snackText = 'Coffee already added';
-            }
+          switch (state.addFavoriteStatus) {
+            case AddFavoriteStatus.alreadyAdded:
+              snackText = 'Coffee Already Added';
+              snackColor = Colors.amber;
+              break;
+            case AddFavoriteStatus.succeded:
+              snackText = 'Coffee Added To Favorites!';
+              snackColor = Colors.green;
+              break;
+            default:
+              snackText = 'Something Wrong Happened';
+              snackColor = Colors.red;
+              break;
           }
 
-          final snackColor = state.hasError ? Colors.red : Colors.amber;
+          /// Reloads favorite coffees
+          if (state.hasSucceded) {
+            context.read<FavoriteBloc>().add(const FavoriteLoadEvent());
+          }
 
           final snackBar = SnackBar(
             content: Text(snackText),
@@ -38,27 +48,23 @@ class AddToFavoritesFloatingButton extends StatelessWidget {
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then(
                 (_) => {
-                  context
-                      .read<FavoriteBloc>()
-                      .add(const FavoriteResetAlertEvent())
+                  context.read<AddFavoriteCubit>().resetStatus(),
                 },
               );
         }
       },
-
       builder: (context, state) {
-        final alreadyAdded = state.isCoffeeAlreadyAdded(coffee);
-
-        final enabled = coffee != null;
+        final enabled =
+            coffee != null && state.addFavoriteStatus == AddFavoriteStatus.idle;
         return _LoadingIndicator(
           isLoading: state.isLoading,
           child: FloatingActionButton(
-            backgroundColor: alreadyAdded ? Colors.pink : Colors.grey,
+            backgroundColor: enabled ? Colors.pink : Colors.grey,
             onPressed: enabled
                 ? () {
                     context
-                        .read<FavoriteBloc>()
-                        .add(FavoriteAddEvent(coffee: coffee));
+                        .read<AddFavoriteCubit>()
+                        .addCoffeeToFavorites(coffee);
                   }
                 : null,
             child: state.isLoading ? null : const Icon(Icons.favorite),
@@ -69,7 +75,7 @@ class AddToFavoritesFloatingButton extends StatelessWidget {
   }
 }
 
-//TODO: Extraer widget
+//TODO: Extraer
 class _LoadingIndicator extends StatelessWidget {
   final Widget child;
   final bool isLoading;

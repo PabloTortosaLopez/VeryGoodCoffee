@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: const _CoffeeImageView(),
-      floatingActionButton: const AddToFavoritesFloatingButton(),
+      floatingActionButton: const AddToFavoritesButton(),
     );
   }
 }
@@ -48,13 +48,15 @@ class _CoffeeImageView extends StatelessWidget {
             return Center(
               child: FadeInImage.memoryNetwork(
                 placeholder: kTransparentImage,
-                image: state.coffee!.imageUrl,
+                //TODO: add WHEN clausule to allow readability
+                image: state.coffee!.image.raw,
               ),
             );
 
           case HomeLoadState.failed:
             return const Center(
-              child: Text('Failed to load data'),
+              child: Text(
+                  'Failed to load data, try again or see your favorite coffees'),
             );
         }
       },

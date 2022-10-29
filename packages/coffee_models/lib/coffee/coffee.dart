@@ -1,20 +1,22 @@
 import 'package:equatable/equatable.dart';
 
+import '../coffee_models.dart';
+
 class Coffee extends Equatable {
-  final String imageUrl;
+  final Image image;
 
   const Coffee({
-    required this.imageUrl,
+    required this.image,
   });
 
   factory Coffee.fromJson(Map<String, dynamic> json) {
-    return Coffee(imageUrl: json['file']);
+    return Coffee(image: Image.url(url: json['file']));
   }
 
-  factory Coffee.fromLocal(String url) {
-    return Coffee(imageUrl: url);
+  factory Coffee.fromLocal(String path) {
+    return Coffee(image: Image.path(path: path));
   }
 
   @override
-  List<Object?> get props => [imageUrl];
+  List<Object?> get props => [image];
 }

@@ -20,27 +20,6 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     on<FavoriteLoadEvent>((event, emit) async {
       await _onFavoriteLoadEvent(event, emit);
     });
-
-    on<FavoriteAddEvent>((event, emit) async {
-      await _onFavoriteAddEvent(event, emit);
-    });
-
-    on<FavoriteResetAlertEvent>((event, emit) async {
-      await _onFavoriteResetAlertEvent(event, emit);
-    });
-  }
-
-  Future<void> _onFavoriteResetAlertEvent(
-    FavoriteResetAlertEvent event,
-    Emitter<FavoriteState> emit,
-  ) async {
-    emit(
-      state.copyWith(
-        showAlert: false,
-        alreadyAdded: false,
-        loadState: FavoriteLoadState.succeded,
-      ),
-    );
   }
 
   Future<void> _onFavoriteLoadEvent(
@@ -48,46 +27,6 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     Emitter<FavoriteState> emit,
   ) async {
     await _loadFavoriteCoffees(emit);
-  }
-
-  Future<void> _onFavoriteAddEvent(
-    FavoriteAddEvent event,
-    Emitter<FavoriteState> emit,
-  ) async {
-    final coffeeToAdd = event.coffee;
-
-    if (state.isCoffeeAlreadyAdded(coffeeToAdd)) {
-      emit(
-        state.copyWith(
-          alreadyAdded: true,
-        ),
-      );
-    } else {
-      emit(
-        state.copyWith(
-          loadState: FavoriteLoadState.loading,
-        ),
-      );
-
-      try {
-        final updatedFavoriteCoffees =
-            await _coffeeRepository.addCoffeeToFavorites(coffeeToAdd);
-        emit(
-          state.copyWith(
-            loadState: FavoriteLoadState.succeded,
-            favoriteCoffees: updatedFavoriteCoffees,
-            showAlert: true,
-          ),
-        );
-      } on Exception catch (_) {
-        emit(
-          state.copyWith(
-            loadState: FavoriteLoadState.failed,
-            showAlert: true,
-          ),
-        );
-      }
-    }
   }
 
   Future<void> _loadFavoriteCoffees(
@@ -115,4 +54,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       );
     }
   }
+
+  //TODO: add try again
+  //TODO: add remove all
 }
