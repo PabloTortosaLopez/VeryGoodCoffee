@@ -71,7 +71,9 @@ class _CoffeeList extends StatelessWidget {
 
               return coffeeImage.when(
                 imagePath: (path) => Image.file(
-                  File(path),
+                  File(
+                    path, // The path has already been verified to exist by retrieving it.
+                  ),
                 ),
                 imageUrl: (_) {
                   assert(false, 'This case should never occur here');

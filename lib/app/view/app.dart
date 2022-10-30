@@ -1,15 +1,14 @@
-import 'package:coffee_api/live_client/client/coffee_client.dart';
-import 'package:coffee_api/local_client/client/local_coffee_client.dart';
+import 'package:coffee_api/coffee_api.dart';
 import 'package:coffee_repositories/coffee_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:very_good_coffee/home/home.dart';
-import 'package:very_good_coffee/routing/routes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../favorite/favorite.dart';
-import '../settings/settings_controller.dart';
+import '../../home/home.dart';
+import '../../routing/routes.dart';
+import '../app.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -24,14 +23,14 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<CoffeeRouter>(
-          lazy: false,
-          create: (BuildContext context) => CoffeeRouter(),
+          lazy: false, // Necessary to allow immediate access
+          create: (_) => CoffeeRouter(),
         ),
         Provider<CoffeeClient>(
-          create: (BuildContext context) => CoffeeClient(),
+          create: (_) => CoffeeClient(),
         ),
         Provider<LocalCoffeeClient>(
-          create: (BuildContext context) => LocalCoffeeClient(),
+          create: (_) => LocalCoffeeClient(),
         ),
       ],
       child: _RepositoryInitializer(
@@ -58,29 +57,7 @@ class MyApp extends StatelessWidget {
                 theme: ThemeData(),
                 darkTheme: ThemeData.dark(),
                 themeMode: settingsController.themeMode,
-                // routeInformationParser: router.routeInformationParser,
-                // routerDelegate: router.routerDelegate,
-
                 routerConfig: router,
-
-                // Define a function to handle named routes in order to support
-                // Flutter web url navigation and deep linking.
-                // onGenerateRoute: (RouteSettings routeSettings) {
-                //   return MaterialPageRoute<void>(
-                //     settings: routeSettings,
-                //     builder: (BuildContext context) {
-                //       switch (routeSettings.name) {
-                //         case SettingsView.routeName:
-                //           return SettingsView(controller: settingsController);
-                //         case SampleItemDetailsView.routeName:
-                //           return const SampleItemDetailsView();
-                //         case SampleItemListView.routeName:
-                //         default:
-                //           return const SampleItemListView();
-                //       }
-                //     },
-                //   );
-                // },
               );
             },
           ),
@@ -137,6 +114,7 @@ class _BlocInitializer extends StatelessWidget {
           ),
         ),
         BlocProvider(
+          lazy: false, // Necessary to eagerly load a coffee image
           create: (_) => AddFavoriteCubit(
             coffeeRepository: coffeeRepository,
           ),

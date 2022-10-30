@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// A customizable snackBar
+/// to which attributes can be added for future functionalities
 Future<void> showCoffeeSnakcBar({
   required BuildContext context,
   required Color backgroundColor,

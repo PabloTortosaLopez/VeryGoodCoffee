@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transparent_image/transparent_image.dart';
-
 import '../../routing/routes.dart';
 import '../home.dart';
 

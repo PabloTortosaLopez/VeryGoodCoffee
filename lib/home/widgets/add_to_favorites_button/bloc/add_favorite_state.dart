@@ -18,12 +18,14 @@ class AddFavoriteState extends Equatable {
   factory AddFavoriteState.initial() =>
       const AddFavoriteState(addFavoriteStatus: AddFavoriteStatus.idle);
 
+  bool get enableButton => addFavoriteStatus == AddFavoriteStatus.idle;
   bool get isLoading => addFavoriteStatus == AddFavoriteStatus.adding;
-  bool get alreadyAdded => addFavoriteStatus == AddFavoriteStatus.alreadyAdded;
   bool get hasError => addFavoriteStatus == AddFavoriteStatus.failed;
   bool get hasSucceded => addFavoriteStatus == AddFavoriteStatus.succeded;
-  bool get enableButton => addFavoriteStatus == AddFavoriteStatus.idle;
+  bool get alreadyAdded => addFavoriteStatus == AddFavoriteStatus.alreadyAdded;
+
   bool get showAlert => alreadyAdded || hasError || hasSucceded;
+
   AddFavoriteState copyWith({
     AddFavoriteStatus? addFavoriteStatus,
   }) =>

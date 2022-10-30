@@ -1,9 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
-
-import '../../routing/routes.dart';
+import 'package:flutter/material.dart';
 
 enum CoffeeButtonType { goTofavorites, reloadCoffee }
 
+/// A simple widget with text and a tappable icon
+/// with possibilities defined by its enum
 class CoffeeActionButton extends StatefulWidget {
   final CoffeeButtonType buttonType;
   final VoidCallback onPressed;

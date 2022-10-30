@@ -13,8 +13,6 @@ class AddToFavoritesButton extends StatelessWidget {
     final coffee = context.select((HomeCubit cubit) => cubit.state.coffee);
 
     return BlocConsumer<AddFavoriteCubit, AddFavoriteState>(
-      /// By checking showAlert here,
-      /// we prevent the stack of snackBars from accumulating.
       listenWhen: (previous, current) =>
           previous.showAlert != current.showAlert,
       listener: (context, state) {
@@ -53,8 +51,7 @@ class AddToFavoritesButton extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        final enabled =
-            coffee != null && state.addFavoriteStatus == AddFavoriteStatus.idle;
+        final enabled = coffee != null && state.enableButton;
         return _LoadingIndicator(
           isLoading: state.isLoading,
           child: FloatingActionButton(
