@@ -16,13 +16,15 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void _loadCoffee() async {
-    emit(
-      state.copyWith(
-        /// We want to delete the current Coffee instance, if any
-        coffee: () => null,
-        loadState: HomeLoadState.loading,
-      ),
-    );
+    if (!state.isLoading) {
+      emit(
+        state.copyWith(
+          /// We want to delete the current Coffee instance, if any
+          coffee: () => null,
+          loadState: HomeLoadState.loading,
+        ),
+      );
+    }
     try {
       final coffee = await _coffeeRepository.loadRandomCoffee();
 
