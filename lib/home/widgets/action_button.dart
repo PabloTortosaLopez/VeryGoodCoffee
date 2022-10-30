@@ -1,10 +1,8 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 enum CoffeeButtonType { goTofavorites, reloadCoffee }
 
 /// A simple widget with text and a tappable icon
-/// with possibilities defined by its enum
 class CoffeeActionButton extends StatefulWidget {
   final CoffeeButtonType buttonType;
   final VoidCallback onPressed;
@@ -33,9 +31,8 @@ class _CoffeeActionButtonState extends State<CoffeeActionButton> {
     return Row(
       children: [
         Center(
-          child: AutoSizeText(
+          child: Text(
             _title,
-            maxFontSize: 24,
           ),
         ),
         IconButton(
