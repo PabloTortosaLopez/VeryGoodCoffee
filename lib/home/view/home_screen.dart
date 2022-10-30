@@ -14,15 +14,11 @@ class HomeScreen extends StatelessWidget {
         actions: [
           CoffeeActionButton(
             buttonType: CoffeeButtonType.goTofavorites,
-            onPressed: () {
-              context.goNamed(RouteNames.favoritesRouteName);
-            },
+            onPressed: () => context.goNamed(RouteNames.favoritesRouteName),
           ),
           CoffeeActionButton(
             buttonType: CoffeeButtonType.reloadCoffee,
-            onPressed: () {
-              context.read<HomeCubit>().reloadRandomCoffee();
-            },
+            onPressed: () => context.read<HomeCubit>().reloadRandomCoffee(),
           ),
         ],
       ),
@@ -42,14 +38,21 @@ class _CoffeeImageView extends StatelessWidget {
         switch (state.loadState) {
           case HomeLoadState.loading:
             return const Center(
-              child: Text('Loading data'),
+              child: CircularProgressIndicator.adaptive(),
             );
           case HomeLoadState.succeded:
-            return Center(
-              child: FadeInImage.memoryNetwork(
-                placeholder: kTransparentImage,
-                //TODO: add WHEN clausule to allow readability
-                image: state.coffee!.image.raw,
+            final coffeeImage = state.coffee!.image;
+
+            return coffeeImage.when(
+              imagePath: (_) {
+                assert(false, 'This case should never occur here');
+                return const SizedBox.shrink();
+              },
+              imageUrl: (url) => Center(
+                child: FadeInImage.memoryNetwork(
+                  placeholder: kTransparentImage,
+                  image: url,
+                ),
               ),
             );
 

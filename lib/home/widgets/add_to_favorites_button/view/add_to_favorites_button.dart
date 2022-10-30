@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:very_good_coffee/app/app.dart';
 
 import '../../../../favorite/favorite.dart';
 import '../../../home.dart';
@@ -11,7 +12,6 @@ class AddToFavoritesButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final coffee = context.select((HomeCubit cubit) => cubit.state.coffee);
 
-//TODO: Mejorar logica y extraer snackBar
     return BlocConsumer<AddFavoriteCubit, AddFavoriteState>(
       /// By checking showAlert here,
       /// we prevent the stack of snackBars from accumulating.
@@ -19,20 +19,20 @@ class AddToFavoritesButton extends StatelessWidget {
           previous.showAlert != current.showAlert,
       listener: (context, state) {
         if (state.showAlert) {
-          String snackText;
+          String snackTitle;
           Color snackColor;
 
           switch (state.addFavoriteStatus) {
             case AddFavoriteStatus.alreadyAdded:
-              snackText = 'Coffee Already Added';
+              snackTitle = 'Coffee Already Added';
               snackColor = Colors.amber;
               break;
             case AddFavoriteStatus.succeded:
-              snackText = 'Coffee Added To Favorites!';
+              snackTitle = 'Coffee Added To Favorites!';
               snackColor = Colors.green;
               break;
             default:
-              snackText = 'Something Wrong Happened';
+              snackTitle = 'Something Wrong Happened';
               snackColor = Colors.red;
               break;
           }
@@ -42,15 +42,14 @@ class AddToFavoritesButton extends StatelessWidget {
             context.read<FavoriteBloc>().add(const FavoriteLoadEvent());
           }
 
-          final snackBar = SnackBar(
-            content: Text(snackText),
+          showCoffeeSnakcBar(
+            context: context,
             backgroundColor: snackColor,
+            title: snackTitle,
+            onFinished: () {
+              context.read<AddFavoriteCubit>().resetStatus();
+            },
           );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then(
-                (_) => {
-                  context.read<AddFavoriteCubit>().resetStatus(),
-                },
-              );
         }
       },
       builder: (context, state) {
@@ -75,7 +74,6 @@ class AddToFavoritesButton extends StatelessWidget {
   }
 }
 
-//TODO: Extraer
 class _LoadingIndicator extends StatelessWidget {
   final Widget child;
   final bool isLoading;

@@ -8,6 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'favorite_state.dart';
 part 'favorite_event.dart';
 
+///This is intentionally a BLoC to handle future functionalities,
+/// e.g. delete an image, delete them all, save them in the device's gallery etc..
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   final CoffeeRepository _coffeeRepository;
 
@@ -20,6 +22,8 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     on<FavoriteLoadEvent>((event, emit) async {
       await _onFavoriteLoadEvent(event, emit);
     });
+
+    add(const FavoriteLoadEvent());
   }
 
   Future<void> _onFavoriteLoadEvent(
@@ -54,7 +58,4 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       );
     }
   }
-
-  //TODO: add try again
-  //TODO: add remove all
 }

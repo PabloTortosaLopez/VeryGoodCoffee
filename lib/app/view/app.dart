@@ -134,7 +134,7 @@ class _BlocInitializer extends StatelessWidget {
         BlocProvider(
           create: (_) => FavoriteBloc(
             coffeeRepository: coffeeRepository,
-          )..add(const FavoriteLoadEvent()),
+          ),
         ),
         BlocProvider(
           create: (_) => AddFavoriteCubit(

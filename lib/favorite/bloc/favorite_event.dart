@@ -10,12 +10,3 @@ abstract class FavoriteEvent extends Equatable {
 class FavoriteLoadEvent extends FavoriteEvent {
   const FavoriteLoadEvent();
 }
-
-class FavoriteRemoveEvent extends FavoriteEvent {
-  const FavoriteRemoveEvent({required this.coffee});
-
-  final Coffee coffee;
-
-  @override
-  List<Object> get props => [coffee];
-}

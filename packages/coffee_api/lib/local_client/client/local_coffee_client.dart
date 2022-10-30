@@ -3,7 +3,8 @@ import 'package:coffee_api/coffee_api.dart';
 import 'package:coffee_models/coffee_models.dart';
 import 'package:flutter/widgets.dart';
 
-//TODO guardar el path al convertir la URL en file
+/// A Client that interacts with FileManager and CoffeeSharedPrefs
+/// to save and retrieve path images locally.
 class LocalCoffeeClient {
   @protected
   final CoffeeSharedPrefs sharedPrefs;
@@ -13,14 +14,17 @@ class LocalCoffeeClient {
   }) : sharedPrefs = sharedPrefs ?? const CoffeeSharedPrefs();
 
   Future<List<Coffee>> getFavoriteCoffees() async {
-    final coffeeImageList = await sharedPrefs.recoverFavoriteCoffeeImages();
+    final coffeePaths = await sharedPrefs.recoverFavoriteCoffeeImages();
 
-    return coffeeImageList
+    final coffeePathsValidated =
+        await FileManager.validatePaths(pathList: coffeePaths);
+
+    return coffeePathsValidated
         .map((coffeePath) => Coffee.fromLocal(coffeePath))
         .toList();
   }
 
-  Future<List<Coffee>> saveFavoriteCoffee(Coffee coffee, Uint8List data) async {
+  Future<void> saveFavoriteCoffee(Coffee coffee, Uint8List data) async {
     final coffeeUrl = coffee.image.raw;
 
     final imageFile = await FileManager.write(
@@ -30,19 +34,12 @@ class LocalCoffeeClient {
 
     if (imageFile != null) {
       await sharedPrefs.storeFavoriteCoffeeImage(imageFile.path);
+    } else {
+      throw Exception('The image has not been saved correctly');
     }
-
-    return await getFavoriteCoffees();
-  }
-
-  Future<bool> removeFavoriteCoffee(Coffee coffee) async {
-    final coffeeUrl = coffee.image.raw;
-
-    return await sharedPrefs.deleteFavoriteCoffeeImage(coffeeUrl);
   }
 }
 
-//TODO: make url constant to share with http wrapper
 extension _UrlFileName on String {
   getFileName() =>
       replaceFirst(RegExp(r'https://coffee.alexflipnote.dev/'), '');

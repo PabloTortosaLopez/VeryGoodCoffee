@@ -26,18 +26,3 @@ class CoffeeHttp implements HttpWrapper {
     return http.get(Uri.parse(url), headers: headers);
   }
 }
-
-// void testApi() async {
-  //   var url = Uri.https('coffee.alexflipnote.dev', '/random.json');
-
-  //   // Await the http get response, then decode the json-formatted response.
-  //   var response = await http.get(url);
-  //   if (response.statusCode == 200) {
-  //     var jsonResponse =
-  //         convert.jsonDecode(response.body) as Map<String, dynamic>;
-  //     var file = jsonResponse['file'];
-  //     print('This is the image cofee: $file.');
-  //   } else {
-  //     print('Request failed with status: ${response.statusCode}.');
-  //   }
-  // }

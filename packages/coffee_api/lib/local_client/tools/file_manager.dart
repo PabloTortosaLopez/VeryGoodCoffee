@@ -15,12 +15,30 @@ class FileManager {
     final localPath = (await getApplicationDocumentsDirectory()).path;
     final localFile = File('$localPath/$fileName');
 
-    final alreadyExists = await localFile.exists();
+    final alreadyAddedd = await localFile.exists();
 
-    if (alreadyExists) {
+    if (alreadyAddedd) {
       throw AlreadyAddedException();
     } else {
       return await localFile.writeAsBytes(data);
     }
+  }
+
+  /// Check if the paths exist to avoid loading a non-existent file later on.
+  ///
+  static Future<List<String>> validatePaths({
+    required List<String> pathList,
+  }) async {
+    List<String> validatedPaths = [];
+
+    for (var path in pathList) {
+      final exists = await File(path).exists();
+
+      if (exists) {
+        validatedPaths.add(path);
+      }
+    }
+
+    return validatedPaths;
   }
 }

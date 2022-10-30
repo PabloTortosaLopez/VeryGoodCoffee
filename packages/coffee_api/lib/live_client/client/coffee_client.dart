@@ -6,6 +6,8 @@ import 'package:flutter/widgets.dart';
 
 import '../../coffee_api.dart';
 
+/// A Client that makes API calls to https://coffee.alexflipnote.dev
+/// to get random coffee images and to get the bytes of a coffee url image.
 class CoffeeClient {
   @protected
   final HttpWrapper http;

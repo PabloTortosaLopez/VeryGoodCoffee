@@ -14,43 +14,71 @@ class FavoriteCoffeesScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Favorites'),
       ),
-      body: BlocBuilder<FavoriteBloc, FavoriteState>(
-        builder: (context, state) {
-          //TODO: AJUSTAR COMO LA OTRA PANTALLA, dar opcion de recargar lista y borrar lista?
-          if (state.isLoading) {
-            return const Center(
-              child: Text('Loading'),
-            );
-          }
-          if (state.hasError) {
-            return const Center(
-              child: Text('Failed'),
-            );
-          }
+      body: const _FavoriteCoffeesView(),
+    );
+  }
+}
 
-          if (state.favoriteCoffeesLoaded) {
-            if (state.emptyFavoriteCoffees) {
-              return const Center(
-                child: Text('No favorite Coffees yet'),
-              );
-            } else {
-              return ListView.builder(
-                shrinkWrap: true,
-                restorationId: 'sampleItemListView',
-                itemCount: state.favoriteCoffees.length,
-                itemBuilder: (BuildContext _, int index) {
-                  final item = state.favoriteCoffees[index];
+class _FavoriteCoffeesView extends StatelessWidget {
+  const _FavoriteCoffeesView({Key? key}) : super(key: key);
 
-                  return Image.file(
-                    File(item.image.raw),
-                  );
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<FavoriteBloc, FavoriteState>(
+      builder: (context, state) {
+        switch (state.loadState) {
+          case FavoriteLoadState.loading:
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          case FavoriteLoadState.succeded:
+            return _CoffeeList(
+              state: state,
+            );
+          case FavoriteLoadState.failed:
+            return InkWell(
+              onTap: () =>
+                  context.read<FavoriteBloc>().add(const FavoriteLoadEvent()),
+              child: const Center(
+                child: Text('TRY AGAIN'),
+              ),
+            );
+        }
+      },
+    );
+  }
+}
+
+class _CoffeeList extends StatelessWidget {
+  final FavoriteState state;
+
+  const _CoffeeList({
+    Key? key,
+    required this.state,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return state.emptyFavoriteCoffees
+        ? const Center(
+            child: Text('No favorite Coffees yet'),
+          )
+        : ListView.builder(
+            restorationId: 'favoriteCoffeesList',
+            itemCount: state.favoriteCoffees.length,
+            itemBuilder: (BuildContext _, int index) {
+              final coffeeImage = state.favoriteCoffees[index].image;
+
+              return coffeeImage.when(
+                imagePath: (path) => Image.file(
+                  File(path),
+                ),
+                imageUrl: (_) {
+                  assert(false, 'This case should never occur here');
+                  return const SizedBox.shrink();
                 },
               );
-            }
-          }
-          return Container();
-        },
-      ),
-    );
+            },
+          );
   }
 }

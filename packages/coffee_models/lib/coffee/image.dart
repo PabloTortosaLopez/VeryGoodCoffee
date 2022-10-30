@@ -16,14 +16,14 @@ abstract class Image extends Equatable {
       _PathImage(path);
 
   R when<R>({
-    required R Function(String url) urlImage,
-    required R Function(String path) pathImage,
+    required R Function(String url) imageUrl,
+    required R Function(String path) imagePath,
   }) {
     final value = this;
     if (value is _UrlImage) {
-      return urlImage(value.url);
+      return imageUrl(value.url);
     } else if (value is _PathImage) {
-      return pathImage(value.path);
+      return imagePath(value.path);
     } else {
       throw StateError('Unhandled type: $value');
     }
