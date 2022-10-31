@@ -34,6 +34,7 @@ $ genhtml coverage/lcov.info -o coverage/
 # Open Coverage Report
 $ open coverage/index.html
 ```
+**NOTE:** To run all unit and widget tests of a package, use the same command from inside that package or use the Test Explorer of Visual Studio Code to run all test at once
 
 ---
 
@@ -121,4 +122,5 @@ The project is structured by grouping files around specific features.
 [why_bloc_link]: https://bloclibrary.dev/#/whybloc
 </br>
 </br>
+---
 *Built by Pablo Tortosa* :shipit:
