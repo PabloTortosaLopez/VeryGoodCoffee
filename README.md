@@ -1,29 +1,43 @@
 # Very Good Coffee
 
-A new Flutter project.
+A random Coffee images app built with [Flutter][flutter_link] for [VeryGoodVentures][vgv_link]
 
-## Development Tools
+## Getting Started 🚀
 
-- Flutter 3.3.3
-- Editor: [VS Code](https://code.visualstudio.com/)
-- Editor Extensions:
-  - [Flutter](https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter)
-  - [Dart](https://marketplace.visualstudio.com/items?itemName=Dart-Code.dart-code)
-- Format Rules:
-  - Editor: Detect Indentation: true
-  - Editor: Format On Save: true
-  - Dart: Line Length: 80
+To run the desired project either use the launch configuration in VSCode/Android Studio or use the following commands:
 
-## Assets
+```sh
+$ flutter run
+```
+or
+```sh
+$ flutter -d your_device_id run
+```
 
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
+_\*Very Good Coffee works on iOS and Android devices._
 
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
+---
 
+## Running Tests 🧪
 
-## Localization (abbr. as L10N)
+To run all unit and widget tests use the following command:
+
+```sh
+$ flutter test --coverage --test-randomize-ordering-seed random
+```
+
+To view the generated coverage report you can use [lcov][lcov_link].
+
+```sh
+# Generate Coverage Report
+$ genhtml coverage/lcov.info -o coverage/
+# Open Coverage Report
+$ open coverage/index.html
+```
+
+---
+
+## Localization (abbr. as L10N) 🌐
 
 This project is setup to translate all string content and adjust layouts to match expectations for a user's device locale.
 This project generates localized messages based on arb files found in the `lib/l10n/arb` directory.
@@ -50,7 +64,7 @@ A complete entry in the English file for a new string looks like this:
 **NOTE:** For tips on how best to capture strings with variations based on parameters or plurality,
 visit the Intl documentation here:
 
-https://docs.google.com/document/d/10e0saTfAv32OZLRmONy866vnaw0I2jwL8zukykpgWBc/edit#heading=h.yfh1gyd78g7g
+[internationalization_user_guide_link]
 
 #### Adding string translations to the project
 
@@ -69,9 +83,39 @@ To retrieve strings in code, we need to import the generated `AppLocalizations` 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 ```
 
-Then, given a `BuildContext context`, localized string values are retrieved in one line using the string key you specified in `app_en.arb`:
+Then, given a `BuildContext context`, localized string values are retrieved in one line using the string key you specified in `app_en.arb` and any other language file:
 
 ```
 final localizedString = AppLocalizations.of(context).stringKey
 ```
 
+## Development Tools :checkered_flag:
+
+- Flutter 3.3.3
+- Editor: [VS Code][visual_studio_link]
+- Editor Extensions:
+  - [Flutter][flutter_extension_link]
+  - [Dart][dart_extension_link]
+- Format Rules:
+  - Editor: Detect Indentation: true
+  - Editor: Format On Save: true
+  - Dart: Line Length: 80
+
+## App Architecture
+
+### BLoC Pattern :blue_book:
+
+The primary UI state management pattern employed within this application is the [BLoC Pattern][why_bloc_link].
+
+### Project Structure :recycle:
+
+The project is structured by grouping files around specific features.
+
+[flutter_link]: https://flutter.dev
+[vgv_link]: https://verygood.ventures/
+[lcov_link]: https://github.com/linux-test-project/lcov
+[internationalization_user_guide_link]: https://docs.google.com/document/d/10e0saTfAv32OZLRmONy866vnaw0I2jwL8zukykpgWBc/edit#heading=h.yfh1gyd78g7g
+[visual_studio_link]: https://code.visualstudio.com/
+[flutter_extension_link]: https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter
+[dart_extension_link]: https://marketplace.visualstudio.com/items?itemName=Dart-Code.dart-code
+[why_bloc_link]: https://bloclibrary.dev/#/whybloc
