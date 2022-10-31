@@ -101,13 +101,13 @@ final localizedString = AppLocalizations.of(context).stringKey
   - Editor: Format On Save: true
   - Dart: Line Length: 80
 
-## App Architecture
+## App Architecture :house:
 
-### BLoC Pattern :blue_book:
+### BLoC Pattern
 
 The primary UI state management pattern employed within this application is the [BLoC Pattern][why_bloc_link].
 
-### Project Structure :recycle:
+### Project Structure
 
 The project is structured by grouping files around specific features.
 
@@ -119,3 +119,5 @@ The project is structured by grouping files around specific features.
 [flutter_extension_link]: https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter
 [dart_extension_link]: https://marketplace.visualstudio.com/items?itemName=Dart-Code.dart-code
 [why_bloc_link]: https://bloclibrary.dev/#/whybloc
+
+*Built by Pablo Tortosa :shipit:
