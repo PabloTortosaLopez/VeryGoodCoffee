@@ -55,26 +55,23 @@ A complete entry in the English file for a new string looks like this:
 ```
 -- app_en.arb --
 {
-    "sampleKey": "This is a string to show in the app",
+    "sampleKey": "Very Good Coffee",
     "@sampleKey": {
-        "description": "This is an example description"
+        "description": "The title of the application"
+    }
+}
+```
+```
+-- app_es.arb --
+{
+    "sampleKey": "Un muy buen café",
+    "@sampleKey": {
+        "description": "El título de la aplicación"
     }
 }
 ```
 
-**NOTE:** For tips on how best to capture strings with variations based on parameters or plurality,
-visit the Intl documentation here:
-
-[internationalization_user_guide_link]
-
-#### Adding string translations to the project
-
-To provide a given locale with translations, there needs to be a corresponding `app_<language-code>.arb` file.
-These files should mimic the `app_en.arb` file, where the **keys** are exactly the same but populated with
-**translated string values** (without the need for the `@` prefixed description entry).
-
-Each additional locale must be added to the `supportedLocales` property when configuring the top level `MaterialApp`
-(described in the "How it works" section below) for the translations to be accessible.
+Each additional locale must be added to the `supportedLocales` property when configuring the top level `MaterialApp`.
 
 #### Retrieving localized strings in code
 
@@ -115,12 +112,9 @@ The project is structured by grouping files around specific features.
 [flutter_link]: https://flutter.dev
 [vgv_link]: https://verygood.ventures/
 [lcov_link]: https://github.com/linux-test-project/lcov
-[internationalization_user_guide_link]: https://docs.google.com/document/d/10e0saTfAv32OZLRmONy866vnaw0I2jwL8zukykpgWBc/edit#heading=h.yfh1gyd78g7g
 [visual_studio_link]: https://code.visualstudio.com/
 [flutter_extension_link]: https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter
 [dart_extension_link]: https://marketplace.visualstudio.com/items?itemName=Dart-Code.dart-code
 [why_bloc_link]: https://bloclibrary.dev/#/whybloc
-</br>
-</br>
 ---
 *Built by Pablo Tortosa* :shipit:
