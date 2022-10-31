@@ -7,7 +7,7 @@ class MockCoffee extends Mock implements Coffee {}
 
 void main() {
   group('HomeState', () {
-    test('supporst value equality', () {
+    test('support value equality', () {
       expect(HomeState.initial(), equals(HomeState.initial()));
     });
 
@@ -21,6 +21,17 @@ void main() {
                 )
                 .coffee,
             equals(mockedCoffee));
+      });
+
+      test('allows setting coffee to null', () {
+        final mockedCoffee = MockCoffee();
+        expect(
+            HomeState(coffee: mockedCoffee, loadState: HomeLoadState.succeded)
+                .copyWith(
+                  coffee: () => null,
+                )
+                .coffee,
+            equals(null));
       });
     });
   });

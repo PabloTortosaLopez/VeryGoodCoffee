@@ -31,8 +31,8 @@ void main() {
       setUp: () => coffeeRepository.mockedCoffee = coffee,
       build: () => HomeCubit(coffeeRepository: coffeeRepository),
       expect: () => [
-        HomeState.initial().copyWith(
-          coffee: () => coffee,
+        HomeState(
+          coffee: coffee,
           loadState: HomeLoadState.succeded,
         ),
       ],
@@ -51,9 +51,12 @@ void main() {
       seed: () => HomeState(coffee: coffee, loadState: HomeLoadState.succeded),
       act: (HomeCubit cubit) => cubit.reloadRandomCoffee(),
       expect: () => [
-        HomeState.initial(),
-        HomeState.initial().copyWith(
-          coffee: () => anotherCoffee,
+        const HomeState(
+          coffee: null,
+          loadState: HomeLoadState.loading,
+        ),
+        HomeState(
+          coffee: anotherCoffee,
           loadState: HomeLoadState.succeded,
         ),
       ],
@@ -66,7 +69,7 @@ void main() {
     );
 
     blocTest<HomeCubit, HomeState>(
-      'tries to reload a randomCoffee but state is already loading',
+      'tries to reload a random coffee but state is already loading',
       build: () => HomeCubit(coffeeRepository: coffeeRepository),
       skip: 1, // Skips initial state
       seed: () =>

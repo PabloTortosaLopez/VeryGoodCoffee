@@ -3,7 +3,7 @@ import 'package:very_good_coffee/home/home.dart';
 
 void main() {
   group('AddFavoriteState', () {
-    test('supporst value equality', () {
+    test('support value equality', () {
       expect(AddFavoriteState.initial(), equals(AddFavoriteState.initial()));
     });
 

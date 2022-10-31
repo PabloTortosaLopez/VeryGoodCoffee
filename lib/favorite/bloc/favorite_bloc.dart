@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'favorite_state.dart';
 part 'favorite_event.dart';
 
-///This is intentionally a BLoC to handle future functionalities,
+/// This is intentionally a BLoC to handle future functionalities,
 /// e.g. delete an image, delete them all, save them in the device's gallery etc..
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   final CoffeeRepository _coffeeRepository;

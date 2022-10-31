@@ -16,15 +16,6 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void _loadCoffee() async {
-    if (!state.isLoading) {
-      emit(
-        state.copyWith(
-          /// We want to delete the current Coffee instance, if any
-          coffee: () => null,
-          loadState: HomeLoadState.loading,
-        ),
-      );
-    }
     try {
       final coffee = await _coffeeRepository.loadRandomCoffee();
 
@@ -43,11 +34,17 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void reloadRandomCoffee() {
-    if (state.isLoading) {
-      /// Nothing to do
-      return;
-    } else {
+  void reloadRandomCoffee() async {
+    /// Prevents multiple calls if the state is already loading
+    if (!state.isLoading) {
+      emit(
+        state.copyWith(
+          /// We want to delete the current Coffee instance
+          /// to disable the add to favorites button
+          coffee: () => null,
+          loadState: HomeLoadState.loading,
+        ),
+      );
       _loadCoffee();
     }
   }

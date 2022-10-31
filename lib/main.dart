@@ -7,5 +7,5 @@ void main() async {
 
   await settingsController.loadSettings();
 
-  runApp(MyApp(settingsController: settingsController));
+  runApp(App(settingsController: settingsController));
 }

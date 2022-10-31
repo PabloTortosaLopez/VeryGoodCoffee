@@ -10,8 +10,8 @@ import '../../home/home.dart';
 import '../../routing/routes.dart';
 import '../app.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({
+class App extends StatelessWidget {
+  const App({
     super.key,
     required this.settingsController,
   });

@@ -7,9 +7,11 @@ class CoffeeActionButton extends StatefulWidget {
   final CoffeeButtonType buttonType;
   final VoidCallback onPressed;
 
-  const CoffeeActionButton(
-      {Key? key, required this.buttonType, required this.onPressed})
-      : super(key: key);
+  const CoffeeActionButton({
+    Key? key,
+    required this.buttonType,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   State<CoffeeActionButton> createState() => _CoffeeActionButtonState();
