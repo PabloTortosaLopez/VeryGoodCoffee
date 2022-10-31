@@ -120,4 +120,6 @@ The project is structured by grouping files around specific features.
 [dart_extension_link]: https://marketplace.visualstudio.com/items?itemName=Dart-Code.dart-code
 [why_bloc_link]: https://bloclibrary.dev/#/whybloc
 
+
+
 *Built by Pablo Tortosa :shipit:
