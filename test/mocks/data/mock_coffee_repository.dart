@@ -7,6 +7,11 @@ class MockedCoffee extends Mock implements Coffee {}
 class MockCoffeeRepository with Mock implements CoffeeRepository {
   Coffee mockedCoffee = MockedCoffee();
   Exception? mockedException;
+  List<Coffee> mockedFavoriteCoffees = [
+    MockedCoffee(),
+    MockedCoffee(),
+    MockedCoffee()
+  ];
 
   @override
   Future<Coffee> loadRandomCoffee() async {
@@ -15,6 +20,14 @@ class MockCoffeeRepository with Mock implements CoffeeRepository {
     }
 
     return mockedCoffee;
+  }
+
+  @override
+  Future<List<Coffee>> loadFavoriteCoffees() async {
+    if (mockedException != null) {
+      throw mockedException!;
+    }
+    return mockedFavoriteCoffees;
   }
 
   @override

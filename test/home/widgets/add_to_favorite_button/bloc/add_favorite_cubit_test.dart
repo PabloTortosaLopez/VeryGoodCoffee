@@ -26,7 +26,7 @@ void main() {
     });
 
     blocTest<AddFavoriteCubit, AddFavoriteState>(
-      'adds a Coffee to favorites',
+      'adds a coffee to favorites',
       build: () => AddFavoriteCubit(coffeeRepository: coffeeRepository),
       act: (AddFavoriteCubit cubit) => cubit.addCoffeeToFavorites(coffee),
       expect: () => [
@@ -38,7 +38,7 @@ void main() {
     );
 
     blocTest<AddFavoriteCubit, AddFavoriteState>(
-      'reset AddFavorite status',
+      'reset addfavorite status',
       build: () => AddFavoriteCubit(coffeeRepository: coffeeRepository),
       seed: () => AddFavoriteState.initial()
           .copyWith(addFavoriteStatus: AddFavoriteStatus.succeded),

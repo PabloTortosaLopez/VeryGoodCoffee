@@ -104,6 +104,7 @@ class _BlocInitializer extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          lazy: false, // Necessary to eagerly load a coffee image
           create: (_) => HomeCubit(
             coffeeRepository: coffeeRepository,
           ),
@@ -114,7 +115,6 @@ class _BlocInitializer extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          lazy: false, // Necessary to eagerly load a coffee image
           create: (_) => AddFavoriteCubit(
             coffeeRepository: coffeeRepository,
           ),

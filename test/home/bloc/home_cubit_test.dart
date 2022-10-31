@@ -50,7 +50,7 @@ void main() {
       build: () => HomeCubit(coffeeRepository: coffeeRepository),
       seed: () => HomeState(coffee: coffee, loadState: HomeLoadState.succeded),
       act: (HomeCubit cubit) => cubit.reloadRandomCoffee(),
-      expect: () => <HomeState>[
+      expect: () => [
         HomeState.initial(),
         HomeState.initial().copyWith(
           coffee: () => anotherCoffee,
@@ -72,7 +72,7 @@ void main() {
       seed: () =>
           const HomeState(coffee: null, loadState: HomeLoadState.loading),
       act: (HomeCubit cubit) => cubit.reloadRandomCoffee(),
-      expect: () => <HomeState>[],
+      expect: () => [],
     );
 
     group('Error', () {
