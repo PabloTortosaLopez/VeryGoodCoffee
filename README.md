@@ -118,4 +118,5 @@ The project is structured by grouping files around specific features.
 [why_bloc_link]: https://bloclibrary.dev/#/whybloc
 
 </br>
+---
 *Built by Pablo Tortosa* :shipit:
