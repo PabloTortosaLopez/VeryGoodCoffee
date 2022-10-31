@@ -12,20 +12,20 @@ class CoffeeRepository {
     required this.localCoffeeClient,
   });
 
-  /// Loads a Random Coffee Image from the web
+  /// Loads a Random Coffee from the web
   Future<Coffee> loadRandomCoffee() async {
-    final coffee = await coffeeClient.getRandomCoffee();
+    final coffee = await coffeeClient.loadRandomCoffee();
     return coffee;
   }
 
-  /// Loads user favorite Coffee Images locally
+  /// Loads user favorite Coffee locally
   Future<List<Coffee>> loadFavoriteCoffees() async {
-    return await localCoffeeClient.getFavoriteCoffees();
+    return await localCoffeeClient.loadFavoriteCoffees();
   }
 
   /// Converts a Coffee Image url to File and saves the path locally
   Future<void> addCoffeeToFavorites(Coffee coffee) async {
     final data = await coffeeClient.getImageDataFromCoffee(coffee.image.raw);
-    return await localCoffeeClient.saveFavoriteCoffee(coffee, data);
+    return await localCoffeeClient.addCoffeeToFavorites(coffee, data);
   }
 }

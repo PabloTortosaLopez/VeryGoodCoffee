@@ -13,7 +13,7 @@ class LocalCoffeeClient {
     CoffeeSharedPrefs? sharedPrefs,
   }) : sharedPrefs = sharedPrefs ?? const CoffeeSharedPrefs();
 
-  Future<List<Coffee>> getFavoriteCoffees() async {
+  Future<List<Coffee>> loadFavoriteCoffees() async {
     final coffeePaths = await sharedPrefs.recoverFavoriteCoffeeImages();
 
     final coffeePathsValidated =
@@ -24,7 +24,7 @@ class LocalCoffeeClient {
         .toList();
   }
 
-  Future<void> saveFavoriteCoffee(Coffee coffee, Uint8List data) async {
+  Future<void> addCoffeeToFavorites(Coffee coffee, Uint8List data) async {
     final coffeeUrl = coffee.image.raw;
 
     final imageFile = await FileManager.write(

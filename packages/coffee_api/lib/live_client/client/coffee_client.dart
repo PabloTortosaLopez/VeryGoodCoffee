@@ -20,7 +20,7 @@ class CoffeeClient {
     CoffeeURLFactory? urlFactory,
   }) : urlFactory = urlFactory ?? const CoffeeURLFactory();
 
-  Future<Coffee> getRandomCoffee() async {
+  Future<Coffee> loadRandomCoffee() async {
     final response =
         await http.get(urlFactory.getUrl(endpoint: CoffeeEndpoint.random));
 
