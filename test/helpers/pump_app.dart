@@ -63,7 +63,6 @@ extension PumpApp on WidgetTester {
               ],
               supportedLocales: const [
                 Locale.fromSubtags(languageCode: 'en'),
-                Locale.fromSubtags(languageCode: 'es'),
               ],
               home: widget,
             ),

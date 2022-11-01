@@ -6,7 +6,6 @@ class CoffeeSharedPrefs {
   const CoffeeSharedPrefs();
 
   /// Keys
-
   static const String _favoriteCoffeesKey = 'favoriteCoffees';
 
   /// Store Coffee path Image
@@ -24,7 +23,7 @@ class CoffeeSharedPrefs {
     }
   }
 
-  /// Recover Coffee Path Images
+  /// Recover Coffee path Images
   Future<List<String>> recoverFavoriteCoffeeImages() async {
     final prefs = await SharedPreferences.getInstance();
     final coffeeList = prefs.getStringList(_favoriteCoffeesKey);

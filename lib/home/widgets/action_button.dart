@@ -3,50 +3,49 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum CoffeeButtonType { goTofavorites, reloadCoffee }
 
-// ignore: must_be_immutable
 class CoffeeActionButton extends StatelessWidget {
   final CoffeeButtonType buttonType;
   final VoidCallback onPressed;
 
-  CoffeeActionButton({
+  const CoffeeActionButton({
     Key? key,
     required this.buttonType,
     required this.onPressed,
   }) : super(key: key);
 
-  String _title = '';
-
-  IconData _buttonIcon = Icons.circle;
-
   @override
   Widget build(BuildContext context) {
-    setUpButtonComponents(context);
+    final localizations = AppLocalizations.of(context)!;
     return Row(
       children: [
         Center(
           child: Text(
-            _title,
+            _setUpTitle(localizations),
           ),
         ),
         IconButton(
-          icon: Icon(_buttonIcon),
+          icon: Icon(_setUpIcon()),
           onPressed: onPressed,
         ),
       ],
     );
   }
 
-  void setUpButtonComponents(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+  IconData _setUpIcon() {
     switch (buttonType) {
       case CoffeeButtonType.goTofavorites:
-        _title = localizations.favorites;
-        _buttonIcon = Icons.favorite;
-        return;
+        return Icons.favorite;
       case CoffeeButtonType.reloadCoffee:
-        _title = localizations.coffee;
-        _buttonIcon = Icons.coffee;
-        return;
+        return Icons.coffee;
+    }
+  }
+
+  String _setUpTitle(AppLocalizations localizations) {
+    switch (buttonType) {
+      case CoffeeButtonType.goTofavorites:
+        return localizations.favorites;
+      case CoffeeButtonType.reloadCoffee:
+        return localizations.coffee;
     }
   }
 }
