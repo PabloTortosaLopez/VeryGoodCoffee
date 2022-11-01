@@ -6,5 +6,37 @@
   "sampleLocalization": "Un muy buen café",
   "@sampleLocalization": {
     "description": "Esto tiene el propósito de testear"
+  },
+   "coffeeAlreadyAdded": "Café ya añadido",
+  "@coffeeAlreadyAdded": {
+    "description": "Título para la snackbar cuando un café ya está añadido"
+  },
+  "coffeeAddedToFavorites": "¡Café añadido a favoritos!",
+  "@coffeeAddedToFavorites": {
+    "description": "Título para la snackbar cuando un café se añade a favoritos"
+  },
+   "somethinWrongHappened": "Algo malo ha ocurrido",
+  "@somethinWrongHappened": {
+    "description": "Texto genérico de error"
+  },
+   "tryAgain": "Volver a intentar",
+  "@tryAgain": {
+    "description": "Texto para reintentar cualquier acción"
+  },
+   "favorites": "Favoritos",
+  "@favorites": {
+    "description": "Texto Favoritos"
+  },
+  "coffee": "Café",
+  "@coffee": {
+    "description": "Texto café"
+  },
+  "noFavoriteCoffeesYet": "Todavía no hay cafés favoritos",
+  "@noFavoriteCoffeesYet": {
+    "description": "Texto para mostrar cuando la lista de favoritos está vacía"
+  },
+  "failedToLoadRandomCoffee": "Error al cargar el café, inténtalo de nuevo o mira tus favoritos",
+  "@failedToLoadRandomCoffee": {
+    "description": "Texto para mostrar cuando la carga de un café aleatorio falla"
   }
 }

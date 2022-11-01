@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transparent_image/transparent_image.dart';
 import '../../routing/routes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../home.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,26 +14,29 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           CoffeeActionButton(
+            key: const Key('home_go_to_favorites_coffee_action_button'),
             buttonType: CoffeeButtonType.goTofavorites,
             onPressed: () => context.goNamed(RouteNames.favoritesRouteName),
           ),
           CoffeeActionButton(
+            key: const Key('home_reload_coffee_coffee_action_button'),
             buttonType: CoffeeButtonType.reloadCoffee,
             onPressed: () => context.read<HomeCubit>().reloadRandomCoffee(),
           ),
         ],
       ),
-      body: const _CoffeeImageView(),
+      body: const CoffeeImageView(),
       floatingActionButton: const AddToFavoritesButton(),
     );
   }
 }
 
-class _CoffeeImageView extends StatelessWidget {
-  const _CoffeeImageView({Key? key}) : super(key: key);
+class CoffeeImageView extends StatelessWidget {
+  const CoffeeImageView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         switch (state.loadState) {
@@ -57,9 +61,8 @@ class _CoffeeImageView extends StatelessWidget {
             );
 
           case HomeLoadState.failed:
-            return const Center(
-              child: Text(
-                  'Failed to load data, try again or see your favorite coffees'),
+            return Center(
+              child: Text(localizations.failedToLoadRandomCoffee),
             );
         }
       },

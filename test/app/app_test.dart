@@ -11,7 +11,7 @@ class MockSettingsController extends Mock implements SettingsController {
 
 void main() {
   group('App', () {
-    testWidgets('uses dark mode from user settings', (tester) async {
+    testWidgets('uses theme mode from user settings', (tester) async {
       await tester
           .pumpWidget(App(settingsController: MockSettingsController()));
 

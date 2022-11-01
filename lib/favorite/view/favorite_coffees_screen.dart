@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../favorite.dart';
 
 class FavoriteCoffeesScreen extends StatelessWidget {
@@ -10,9 +10,10 @@ class FavoriteCoffeesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favorites'),
+        title: Text(localizations.favorites),
       ),
       body: const _FavoriteCoffeesView(),
     );
@@ -24,6 +25,7 @@ class _FavoriteCoffeesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return BlocBuilder<FavoriteBloc, FavoriteState>(
       builder: (context, state) {
         switch (state.loadState) {
@@ -39,8 +41,8 @@ class _FavoriteCoffeesView extends StatelessWidget {
             return InkWell(
               onTap: () =>
                   context.read<FavoriteBloc>().add(const FavoriteLoadEvent()),
-              child: const Center(
-                child: Text('TRY AGAIN'),
+              child: Center(
+                child: Text(localizations.tryAgain),
               ),
             );
         }
@@ -59,9 +61,10 @@ class _CoffeeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return state.emptyFavoriteCoffees
-        ? const Center(
-            child: Text('No favorite Coffees yet'),
+        ? Center(
+            child: Text(localizations.noFavoriteCoffeesYet),
           )
         : ListView.builder(
             restorationId: 'favoriteCoffeesList',

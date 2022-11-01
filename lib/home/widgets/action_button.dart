@@ -1,35 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum CoffeeButtonType { goTofavorites, reloadCoffee }
 
-/// A simple widget with text and a tappable icon
-class CoffeeActionButton extends StatefulWidget {
+// ignore: must_be_immutable
+class CoffeeActionButton extends StatelessWidget {
   final CoffeeButtonType buttonType;
   final VoidCallback onPressed;
 
-  const CoffeeActionButton({
+  CoffeeActionButton({
     Key? key,
     required this.buttonType,
     required this.onPressed,
   }) : super(key: key);
 
-  @override
-  State<CoffeeActionButton> createState() => _CoffeeActionButtonState();
-}
-
-class _CoffeeActionButtonState extends State<CoffeeActionButton> {
   String _title = '';
 
   IconData _buttonIcon = Icons.circle;
 
   @override
-  void initState() {
-    super.initState();
-    setUpButtonComponents();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    setUpButtonComponents(context);
     return Row(
       children: [
         Center(
@@ -39,20 +30,21 @@ class _CoffeeActionButtonState extends State<CoffeeActionButton> {
         ),
         IconButton(
           icon: Icon(_buttonIcon),
-          onPressed: widget.onPressed,
+          onPressed: onPressed,
         ),
       ],
     );
   }
 
-  void setUpButtonComponents() {
-    switch (widget.buttonType) {
+  void setUpButtonComponents(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (buttonType) {
       case CoffeeButtonType.goTofavorites:
-        _title = 'Favorites';
+        _title = localizations.favorites;
         _buttonIcon = Icons.favorite;
         return;
       case CoffeeButtonType.reloadCoffee:
-        _title = 'Coffee';
+        _title = localizations.coffee;
         _buttonIcon = Icons.coffee;
         return;
     }

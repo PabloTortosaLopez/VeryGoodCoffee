@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:very_good_coffee/app/app.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../favorite/favorite.dart';
 import '../../../home.dart';
 
@@ -10,6 +10,7 @@ class AddToFavoritesButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final coffee = context.select((HomeCubit cubit) => cubit.state.coffee);
 
     return BlocConsumer<AddFavoriteCubit, AddFavoriteState>(
@@ -22,15 +23,15 @@ class AddToFavoritesButton extends StatelessWidget {
 
           switch (state.addFavoriteStatus) {
             case AddFavoriteStatus.alreadyAdded:
-              snackTitle = 'Coffee Already Added';
+              snackTitle = localizations.coffeeAlreadyAdded;
               snackColor = Colors.amber;
               break;
             case AddFavoriteStatus.succeded:
-              snackTitle = 'Coffee Added To Favorites!';
+              snackTitle = localizations.coffeeAddedToFavorites;
               snackColor = Colors.green;
               break;
             default:
-              snackTitle = 'Something Wrong Happened';
+              snackTitle = localizations.somethinWrongHappened;
               snackColor = Colors.red;
               break;
           }
@@ -52,7 +53,7 @@ class AddToFavoritesButton extends StatelessWidget {
       },
       builder: (context, state) {
         final enabled = coffee != null && state.enableButton;
-        return _LoadingIndicator(
+        return LoadingIndicator(
           isLoading: state.isLoading,
           child: FloatingActionButton(
             backgroundColor: enabled ? Colors.pink : Colors.grey,
@@ -71,10 +72,10 @@ class AddToFavoritesButton extends StatelessWidget {
   }
 }
 
-class _LoadingIndicator extends StatelessWidget {
+class LoadingIndicator extends StatelessWidget {
   final Widget child;
   final bool isLoading;
-  const _LoadingIndicator({
+  const LoadingIndicator({
     Key? key,
     required this.child,
     required this.isLoading,

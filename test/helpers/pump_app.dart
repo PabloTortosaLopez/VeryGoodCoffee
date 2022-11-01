@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:very_good_coffee/favorite/favorite.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:very_good_coffee/home/home.dart';
@@ -42,31 +43,33 @@ extension PumpApp on WidgetTester {
     registerFallbackValue(FakeFavoriteState());
     registerFallbackValue(FakeFavoriteEvent());
 
-    return pumpWidget(
-      RepositoryProvider.value(
-        value: coffeeRepository ?? MockCoffeeRepository(),
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider.value(value: homeCubit ?? MockHomeCubit()),
-            BlocProvider.value(
-                value: addToFavoriteCubit ?? MockAddToFavoriteCubit()),
-            BlocProvider.value(value: favoriteBloc ?? MockFavoriteBloc()),
-          ],
-          child: MaterialApp(
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
+    return mockNetworkImages(() async {
+      return pumpWidget(
+        RepositoryProvider.value(
+          value: coffeeRepository ?? MockCoffeeRepository(),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: homeCubit ?? MockHomeCubit()),
+              BlocProvider.value(
+                  value: addToFavoriteCubit ?? MockAddToFavoriteCubit()),
+              BlocProvider.value(value: favoriteBloc ?? MockFavoriteBloc()),
             ],
-            supportedLocales: const [
-              Locale.fromSubtags(languageCode: 'en'),
-              Locale.fromSubtags(languageCode: 'es'),
-            ],
-            home: widget,
+            child: MaterialApp(
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale.fromSubtags(languageCode: 'en'),
+                Locale.fromSubtags(languageCode: 'es'),
+              ],
+              home: widget,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

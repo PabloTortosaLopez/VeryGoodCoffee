@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_coffee/home/home.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../helpers/pump_app.dart';
 
@@ -24,7 +25,9 @@ void main() {
       final title = tester.widget<Text>(find.byType(Text));
       final buttonIcon = tester.widget<IconButton>(find.byType(IconButton));
 
-      expect(title.data, equals('Favorites'));
+      final favoritesTitle =
+          (await AppLocalizations.delegate.load(const Locale('en'))).favorites;
+      expect(title.data, equals(favoritesTitle));
 
       expect(buttonIcon.icon.toString(),
           equals(const Icon(Icons.favorite).toString()));
@@ -43,7 +46,9 @@ void main() {
       final title = tester.widget<Text>(find.byType(Text));
       final buttonIcon = tester.widget<IconButton>(find.byType(IconButton));
 
-      expect(title.data, equals('Coffee'));
+      final coffeeTitle =
+          (await AppLocalizations.delegate.load(const Locale('en'))).coffee;
+      expect(title.data, equals(coffeeTitle));
 
       expect(buttonIcon.icon.toString(),
           equals(const Icon(Icons.coffee).toString()));

@@ -6,5 +6,37 @@
    "sampleLocalization": "A very good coffee",
   "@sampleLocalization": {
     "description": "This is for tests purposes"
+  },
+  "coffeeAlreadyAdded": "Coffee Already Added",
+  "@coffeeAlreadyAdded": {
+    "description": "Title for the snackbar when a coffee is already added"
+  },
+  "coffeeAddedToFavorites": "Coffee Addedd To Favorites!",
+  "@coffeeAddedToFavorites": {
+    "description": "Title for the snackbar when a coffee added to favorites"
+  },
+   "somethinWrongHappened": "Something Wrong Happened",
+  "@somethinWrongHappened": {
+    "description": "Generic error text"
+  },
+   "tryAgain": "TRY AGAIN",
+  "@tryAgain": {
+    "description": "Text to try any action again"
+  },
+   "favorites": "Favorites",
+  "@favorites": {
+    "description": "Favorites text"
+  },
+  "coffee": "Coffee",
+  "@coffee": {
+    "description": "Coffee text"
+  },
+  "noFavoriteCoffeesYet": "No favorite Coffees yet",
+  "@noFavoriteCoffeesYet": {
+    "description": "Text to display when the favorite coffees list is empty"
+  },
+  "failedToLoadRandomCoffee": "Failed to load data, try again or see your favorite coffees",
+  "@failedToLoadRandomCoffee": {
+    "description": "Text to display when loading a random coffee fails"
   }
 }
