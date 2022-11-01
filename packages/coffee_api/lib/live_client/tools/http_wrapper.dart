@@ -9,6 +9,7 @@ abstract class HttpWrapper {
 class CoffeeHttp implements HttpWrapper {
   const CoffeeHttp();
 
+  /// Not in use
   @override
   Future<http.Response> post(
     String url, {

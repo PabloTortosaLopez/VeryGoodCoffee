@@ -56,7 +56,7 @@ void main() {
         );
       });
 
-      test('loadRandomCoffee returns a coffee', () async {
+      test('returns a coffee', () async {
         final coffee = await coffeeRepository.loadRandomCoffee();
 
         expect(
@@ -87,7 +87,7 @@ void main() {
         );
       });
 
-      test('loadFavoriteCoffees returns a coffee list', () async {
+      test('returns a coffee list', () async {
         final coffee = await coffeeRepository.loadFavoriteCoffees();
 
         expect(

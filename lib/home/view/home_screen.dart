@@ -54,6 +54,7 @@ class CoffeeImageView extends StatelessWidget {
               },
               imageUrl: (url) => Center(
                 child: FadeInImage.memoryNetwork(
+                  fadeInDuration: const Duration(milliseconds: 300),
                   placeholder: kTransparentImage,
                   image: url,
                 ),

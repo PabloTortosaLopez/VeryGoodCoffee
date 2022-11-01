@@ -2,17 +2,14 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:coffee_models/coffee_models.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../coffee_api.dart';
 
 /// A Client that makes API calls to https://coffee.alexflipnote.dev
 /// to get random coffee images and to get the bytes of a coffee url image.
 class CoffeeClient {
-  @protected
   final HttpWrapper http;
 
-  @protected
   final CoffeeURLFactory urlFactory;
 
   CoffeeClient({
@@ -33,6 +30,10 @@ class CoffeeClient {
 
   Future<Uint8List> getImageDataFromCoffee(String coffeeUrl) async {
     final response = await http.get(coffeeUrl);
+
+    if (response.statusCode != 200) {
+      throw HttpException(code: response.statusCode, body: response.body);
+    }
     return response.bodyBytes;
   }
 }

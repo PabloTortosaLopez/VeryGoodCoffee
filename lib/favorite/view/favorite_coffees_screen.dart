@@ -66,7 +66,6 @@ class CoffeeList extends StatelessWidget {
     Key? key,
     required this.state,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;

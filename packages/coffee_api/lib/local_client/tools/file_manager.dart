@@ -24,8 +24,7 @@ class FileManager {
     }
   }
 
-  /// Check if the paths exist to avoid loading a non-existent file later on.
-  ///
+  /// Checks if the paths exist to avoid loading a non-existent file later on
   static Future<List<String>> validatePaths({
     required List<String> pathList,
   }) async {
