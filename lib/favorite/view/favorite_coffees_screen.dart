@@ -15,17 +15,16 @@ class FavoriteCoffeesScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(localizations.favorites),
       ),
-      body: const _FavoriteCoffeesView(),
+      body: const FavoriteCoffeesView(),
     );
   }
 }
 
-class _FavoriteCoffeesView extends StatelessWidget {
-  const _FavoriteCoffeesView({Key? key}) : super(key: key);
+class FavoriteCoffeesView extends StatelessWidget {
+  const FavoriteCoffeesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
     return BlocBuilder<FavoriteBloc, FavoriteState>(
       builder: (context, state) {
         switch (state.loadState) {
@@ -34,27 +33,36 @@ class _FavoriteCoffeesView extends StatelessWidget {
               child: CircularProgressIndicator.adaptive(),
             );
           case FavoriteLoadState.succeded:
-            return _CoffeeList(
+            return CoffeeList(
               state: state,
             );
           case FavoriteLoadState.failed:
-            return InkWell(
-              onTap: () =>
-                  context.read<FavoriteBloc>().add(const FavoriteLoadEvent()),
-              child: Center(
-                child: Text(localizations.tryAgain),
-              ),
-            );
+            return const TryAgainCTA();
         }
       },
     );
   }
 }
 
-class _CoffeeList extends StatelessWidget {
+class TryAgainCTA extends StatelessWidget {
+  const TryAgainCTA({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    return InkWell(
+      onTap: () => context.read<FavoriteBloc>().add(const FavoriteLoadEvent()),
+      child: Center(
+        child: Text(localizations.tryAgain),
+      ),
+    );
+  }
+}
+
+class CoffeeList extends StatelessWidget {
   final FavoriteState state;
 
-  const _CoffeeList({
+  const CoffeeList({
     Key? key,
     required this.state,
   }) : super(key: key);

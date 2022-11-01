@@ -37,7 +37,8 @@ void main() {
     when(() => addFavoriteCubit.state).thenReturn(AddFavoriteState.initial());
   });
   group('HomeScreen', () {
-    testWidgets('renders home screen', (tester) async {
+    testWidgets('renders CoffeeImageView and AddToFavoritesButton',
+        (tester) async {
       await tester.pumpApp(const HomeScreen(),
           homeCubit: homeCubit, addToFavoriteCubit: addFavoriteCubit);
 
